@@ -1,0 +1,2 @@
+# Keep this file to ensure the temp_uploads directory exists
+# Temporary files during prediction will be stored here

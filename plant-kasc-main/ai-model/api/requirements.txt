@@ -1,0 +1,12 @@
+flask>=2.3.0
+flask-cors>=4.0.0
+pillow>=10.0.0
+numpy>=1.24.0
+python-dotenv>=1.0.0
+gunicorn>=21.2.0
+
+# Firebase Admin SDK for interacting with Firebase services (Storage, Auth, Firestore)
+firebase-admin>=6.0.0
+
+# Uncomment below when you have a trained model and want real predictions
+# tensorflow>=2.13.0
