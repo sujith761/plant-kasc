@@ -1,0 +1,100 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --glass-bg: rgba(255, 255, 255, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.5);
+    --primary-main: #14b8a6;
+    --primary-dark: #0f766e;
+    --nature-bg: #f8faf9;
+  }
+
+  body {
+    @apply bg-[#f8fafc] text-slate-800 font-inter antialiased;
+    background-image: 
+      radial-gradient(at 0% 0%, rgba(20, 184, 166, 0.05) 0, transparent 50%), 
+      radial-gradient(at 100% 100%, rgba(20, 184, 166, 0.05) 0, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4, .font-heading {
+    @apply font-outfit font-bold tracking-tight text-slate-900;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white/70 backdrop-blur-md border border-white/40 shadow-xl shadow-slate-200/50;
+  }
+
+  .glass-dark {
+    @apply bg-slate-900/80 backdrop-blur-md border border-slate-700/50 shadow-2xl;
+  }
+
+  .btn-premium {
+    @apply relative overflow-hidden px-8 py-3.5 rounded-2xl font-outfit font-bold text-white transition-all duration-300
+           bg-gradient-to-br from-teal-500 to-emerald-600 hover:from-teal-600 hover:to-emerald-700
+           shadow-lg shadow-teal-500/30 hover:shadow-teal-600/40 hover:-translate-y-0.5 active:scale-95
+           disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  .btn-premium-outline {
+    @apply relative px-8 py-3.5 rounded-2xl font-outfit font-bold text-teal-700 transition-all duration-300
+           border-2 border-teal-600/20 hover:border-teal-600/40 hover:bg-teal-50
+           hover:-translate-y-0.5 active:scale-95;
+  }
+
+  .input-premium {
+    @apply w-full px-5 py-3.5 bg-white/50 border border-slate-200 rounded-2xl focus:outline-none 
+           focus:ring-4 focus:ring-teal-500/10 focus:border-teal-500/50 transition-all duration-200
+           placeholder:text-slate-400 font-medium;
+  }
+
+  .card-premium {
+    @apply glass p-8 rounded-[2.5rem] transition-all duration-500 hover:shadow-2xl hover:shadow-teal-500/10 hover:-translate-y-1;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-emerald-600;
+  }
+
+  .badge-premium {
+    @apply px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-teal-100 text-teal-700 border border-teal-200;
+  }
+}
+
+/* Custom modern scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-200 rounded-full border-4 border-transparent bg-clip-content hover:bg-slate-300 transition-colors;
+}
+
+/* Page transitions */
+.page-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms, transform 400ms;
+}
+
+/* Section decorations */
+.mesh-gradient {
+  background-color: #ffffff;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(168, 77%, 86%, 1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(170, 77%, 86%, 1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(172, 77%, 86%, 1) 0, transparent 50%);
+}
+
