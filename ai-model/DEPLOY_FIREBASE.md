@@ -17,13 +17,13 @@ Prerequisites
 2) Set environment variables locally (or in Cloud Run)
 
 - `GOOGLE_APPLICATION_CREDENTIALS` should be set to the path of the downloaded service account JSON
-- `FIREBASE_STORAGE_BUCKET` should be set to your Firebase storage bucket name, e.g. `your-project-id.appspot.com`
+- `FIREBASE_STORAGE_BUCKET` should be set to your Firebase storage bucket name, e.g. `plant-disease-kasc.appspot.com`
 
 Example (locally)
 
 ```powershell
 $env:GOOGLE_APPLICATION_CREDENTIALS = "C:\path\to\serviceAccountKey.json"
-$env:FIREBASE_STORAGE_BUCKET = "your-project-id.appspot.com"
+$env:FIREBASE_STORAGE_BUCKET = "plant-disease-kasc.appspot.com"
 ```
 
 3) Ensure `ai-model/api` is Docker-ready
@@ -37,24 +37,24 @@ Option A: Deploy from source (Cloud Build will build image)
 
 ```bash
 cd ai-model/api
-gcloud config set project PROJECT_ID
+gcloud config set project plant-disease-kasc
 gcloud run deploy plant-ai-api \
   --source . \
   --region us-central1 \
   --allow-unauthenticated \
-  --set-env-vars "FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com"
+  --set-env-vars "FIREBASE_STORAGE_BUCKET=plant-disease-kasc.appspot.com"
 ```
 
 Option B: Build image and deploy
 
 ```bash
 cd ai-model/api
-gcloud builds submit --tag gcr.io/PROJECT_ID/ai-api
+gcloud builds submit --tag gcr.io/plant-disease-kasc/ai-api
 gcloud run deploy plant-ai-api \
-  --image gcr.io/PROJECT_ID/ai-api \
+  --image gcr.io/plant-disease-kasc/ai-api \
   --region us-central1 \
   --allow-unauthenticated \
-  --set-env-vars "FIREBASE_STORAGE_BUCKET=your-project-id.appspot.com"
+  --set-env-vars "FIREBASE_STORAGE_BUCKET=plant-disease-kasc.appspot.com"
 ```
 
 - In Cloud Run service settings, set `GOOGLE_APPLICATION_CREDENTIALS` by creating a secret with your service account JSON and mounting it, or use Workload Identity.
@@ -99,7 +99,7 @@ Add to `firebase.json` in your project root:
 8) Troubleshooting
 
 - If Firebase init fails on Cloud Run, check that credentials are available to the runtime via secret or Workload Identity.
-- Inspect Cloud Run logs via `gcloud logs read --project=PROJECT_ID --limit=50`.
+- Inspect Cloud Run logs via `gcloud logs read --project=plant-disease-kasc --limit=50`.
 
 
 That's it — once deployed, your AI API will be reachable over HTTPS and can serve uploaded images via Firebase Storage (HTTPS), avoiding mixed-content issues in your hosted frontend.

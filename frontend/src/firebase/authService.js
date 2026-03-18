@@ -17,6 +17,9 @@ import {
 import { doc, setDoc, getDoc, updateDoc, serverTimestamp } from 'firebase/firestore';
 import { auth, googleProvider, db } from './config';
 
+// Default admin credentials
+const ADMIN_EMAIL = 'adminplantcare@gmail.com';
+
 // ==========================================
 // 1. REGISTER with Email & Password
 // ==========================================
@@ -28,17 +31,22 @@ export const registerWithEmail = async (name, email, password) => {
         // Update display name
         await updateProfile(user, { displayName: name });
 
-        // Check if this is the first user - make them admin
+        // Assign admin role if email matches admin email, or if first user
         let role = 'user';
-        try {
-            const { getDocs, collection } = await import('firebase/firestore');
-            const usersSnapshot = await getDocs(collection(db, 'users'));
-            if (usersSnapshot.empty) {
-                role = 'admin';
-                console.log('First user registered - setting as admin');
+        if (email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {
+            role = 'admin';
+            console.log('Admin email detected - setting as admin');
+        } else {
+            try {
+                const { getDocs, collection } = await import('firebase/firestore');
+                const usersSnapshot = await getDocs(collection(db, 'users'));
+                if (usersSnapshot.empty) {
+                    role = 'admin';
+                    console.log('First user registered - setting as admin');
+                }
+            } catch (e) {
+                console.log('Could not check user count, defaulting to user role');
             }
-        } catch (e) {
-            console.log('Could not check user count, defaulting to user role');
         }
 
         // Create user document in Firestore
@@ -90,12 +98,14 @@ export const loginWithGoogle = async () => {
         const userDoc = await getDoc(doc(db, 'users', user.uid));
 
         if (!userDoc.exists()) {
+            // Assign admin role if email matches admin email
+            const googleRole = user.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase() ? 'admin' : 'user';
             // Create user document for new Google users
             await setDoc(doc(db, 'users', user.uid), {
                 uid: user.uid,
                 name: user.displayName,
                 email: user.email,
-                role: 'user',
+                role: googleRole,
                 photoURL: user.photoURL,
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp()

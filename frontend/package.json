@@ -10,6 +10,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
   "dependencies": {
+    "@dataconnect/generated": "file:src/dataconnect-generated",
     "axios": "^1.5.0",
     "firebase": "^12.9.0",
     "framer-motion": "^12.34.0",

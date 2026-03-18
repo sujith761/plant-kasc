@@ -1,0 +1,6 @@
+plant-kasc-main/
+├── TRAINING_AND_SETUP_GUIDE.md      ← START HERE (comprehensive)
+├── README_MODEL_TRAINING.md         ← Quick reference
+├── QUICK_START.bat                  ← Windows launcher
+├── quick_start.sh                   ← Linux/Mac launcher
+└── ai-model/training/train_alexnet_model.py  ← Training script
